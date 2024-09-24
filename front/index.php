@@ -160,18 +160,20 @@
             const descripcion = document.getElementById('descripcion').value;
             const instructor = document.getElementById('instructor').value;
             const precio = document.getElementById('precio').value;
-            console.log("JSON enviado para actualizar: ");
-            const imagen = "https://i.udemycdn.com/course/480x270/882422_0549_9.jpg";
-            const myJson = JSON.stringify({id: parseInt(id, 10), titulo, descripcion, instructor, precio: parseInt(precio, 10), imagen});
-            console.log(myJson);
-            console.log("fin");
+            const imagen = "";
+            const formData = new URLSearchParams();
+            formData.append('titulo', titulo);
+            formData.append('descripcion', descripcion);
+            formData.append('instructor', instructor);
+            formData.append('imagen', imagen);
+            formData.append('precio', precio);
             fetch(`http://localhost/api-rest/api/cursos/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': 'Basic ' + 'YTJ5YTEwYTFEcjFXWS9HckI5OS56c3NyLjRuNmV4MGN5NU1TM2NCTmU2RzBNaEhFS3dnd1luenVnYjRLOm8yeW8xMm9QR0pxLkc3Mno5dUYzOUh3OGJFWXRlM1NHYTZXa0JzbEt3bWdOMkJEVHBqcTRyVG1KVVIyNg==',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({id: parseInt(id, 10), titulo, descripcion, instructor, precio: parseInt(precio, 10), imagen})
+                body: formData
             })
             .then(response => {
                 if (response.ok) {
